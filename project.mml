@@ -1,0 +1,368 @@
+{
+  "bounds": [
+    -70.7303,
+    42.0199,
+    -70.6858,
+    42.0594
+  ],
+  "center": [
+    -70.7026,
+    42.0416,
+    15
+  ],
+  "format": "png8",
+  "interactivity": false,
+  "minzoom": 8,
+  "maxzoom": 16,
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss"
+  ],
+  "Layer": [
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.912160551605524
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where landuse = 'conservation' or landuse = 'nature_reserve' or landuse = 'park' or leisure='park' or leisure = 'recreation_ground' or leisure='golf_course' or leisure='nature_reserve') as nature",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "nature",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "nature"
+    },
+    {
+      "geometry": "polygon",
+      "extent": [
+        -180,
+        -85.051,
+        180,
+        85.051
+      ],
+      "id": "ocean",
+      "class": "",
+      "Datasource": {
+        "file": "/home/lars/geodata/osm/water-polygons-split/water_polygons.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "advanced": {},
+      "name": "ocean"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.912160551605524
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where \"natural\" = 'wetland') as wetlands",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "wetlands",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "wetlands"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.5224881957754,
+        41.2390449630356,
+        -69.9283840955685,
+        42.9075409858323
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from mgis_contours5k) as contours",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-73.5224881957754,41.2390449630356,-69.9283840955685,42.9075409858323",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "contours",
+      "class": "",
+      "srs-name": "WGS84",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "advanced": {},
+      "name": "contours"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.88936286514975
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand')\n) as areas",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5295146.88",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "areas",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "areas"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_line where waterway is not null) as waterways",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "waterways",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "waterways"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.912160551605524
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where \"natural\" = 'water') as water",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "water",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "water"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_line where railway is not null) as rail",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "rail",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "rail"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        43.46055795589259
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_line where highway is not null) as highway",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5382338.28",
+        "host": "deltaii",
+        "dbname": "gis",
+        "id": "roads",
+        "project": "nembaTrailMap",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
+      },
+      "id": "roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "roads"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.912160551605524
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select way from ma_polygon where building is not null) as buildings",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "buildings",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "buildings"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.88936286514975
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where amenity='parking') as parkingArea",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5295146.88",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "parkingArea",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "parkingArea"
+    },
+    {
+      "geometry": "point",
+      "extent": [
+        -73.99706350882568,
+        41.232902145888104,
+        -69.92723722080088,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_point where amenity='parking') as parkingPoint",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "parkingPoint",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "parkingPoint"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_line where power='line') as powerlines",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "powerlines",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "powerlines"
+    },
+    {
+      "geometry": "point",
+      "extent": [
+        -73.99706350882568,
+        41.232902145888104,
+        -69.92723722080088,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_point) as points",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis"
+      },
+      "id": "points",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "points"
+    }
+  ],
+  "scale": 1,
+  "metatile": 2,
+  "name": "NEMBA Trail Maps",
+  "description": "",
+  "attribution": ""
+}
