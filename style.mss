@@ -217,3 +217,14 @@ Map { background-color: @mapbg; }
     line-dasharray: 6,3;
   }
 }
+
+#hillshade {
+  raster-opacity: 0.5;
+  raster-scaling: bilinear;
+  raster-comp-op: multiply;
+  ::hilight {
+    raster-scaling: bilinear;
+    raster-comp-op: hard-light;
+    raster-opacity: 0.5;
+  }
+}
