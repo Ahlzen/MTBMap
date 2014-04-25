@@ -1,21 +1,40 @@
 @mapbg: #fff;
-@trailcolor: #740;
-@contourcolor: fadeout(#930, 80%);
+//@trailcolor: #640;
+//@trailcolor: #070;
+@trailcolor: #430;
+@contourcolor: fadeout(#530, 80%);
 @waterfill: #7af;
-@naturecolor: #ceb;
+@naturecolor: #cce3b0;
+@roadcolor: #aaa;
+@housecolor: #bbb;
+
 Map { background-color: @mapbg; }
 
 
 /* Contours and buildings */
 #contours[zoom>=14] { line-width: 0.6; line-color: @contourcolor; }
-#buildings[zoom>=14] { polygon-fill: #000; }
+#buildings[zoom>=14] { polygon-fill: @housecolor; }
 
 /* Landuse etc */
 #nature {
   polygon-fill: @naturecolor;
   [leisure='golf_course'] {
-    polygon-fill: darken(@naturecolor, 10%);
+    polygon-fill: darken(@naturecolor, 0%);
   }
+  
+  [name='Ames Nowell State Park'] {
+    ::border {
+      line-width: 8;
+      line-color: darken(@naturecolor, 40%);
+      line-opacity: 0.5;
+    }
+    ::border2 {
+      line-width: 2;
+      line-color: darken(@naturecolor, 40%);
+      line-opacity: 0.5;
+    }
+  }
+  
 }
 
 
@@ -26,7 +45,7 @@ Map { background-color: @mapbg; }
   polygon-fill: @waterfill;
   ::labels [zoom >= 14] {
    	text-name: "[name]";
-    text-size: 9;
+    text-size: 11;
     text-face-name: "DejaVu Sans Oblique";
     text-fill: #03d;
     text-max-char-angle-delta: 20;
@@ -34,7 +53,7 @@ Map { background-color: @mapbg; }
   }
 }
 #wetlands {
-  polygon-fill: fadeout(@waterfill, 60%);
+  /*polygon-fill: fadeout(@waterfill, 60%);*/
   polygon-pattern-file: url(symbols/marsh.png);
   //polygon-pattern-file: url(symbols/wetland.svg);
 }
@@ -53,7 +72,7 @@ Map { background-color: @mapbg; }
 
 #roads [zoom<=10] {
   line-width:0;
-  line-color:black;  
+  line-color:@roadcolor;  
   [highway='motorway'],
   [highway='trunk'] { line-width: 1; }
   [highway='primary'],
@@ -63,7 +82,7 @@ Map { background-color: @mapbg; }
 
 #roads [zoom>=11][zoom<=13] {
   line-width:0;
-  line-color:black;
+  line-color:@roadcolor;
   [highway='motorway'],
   [highway='trunk'] { line-width: 2.5; }
   [highway='primary'],
@@ -89,7 +108,7 @@ Map { background-color: @mapbg; }
 
 #roads [zoom>=14] {
   line-width:0;
-  line-color:black;
+  line-color:@roadcolor;
   
   [highway='motorway'],
   [highway='trunk'] { line-width: 7; }
@@ -109,19 +128,23 @@ Map { background-color: @mapbg; }
   }  
   [highway='track'],
   [highway='bridleway'] {
-    line-width: 1.5;
-    line-dasharray: 6, 2;
-    line-color: @trailcolor;
+    ::background { line-width: 4; line-color: white; }
+    ::fill {
+      line-width: 1.5;
+      line-dasharray: 10, 2;
+      line-color: @trailcolor;
+    }
   }
   [highway='footway'],
   [highway='path'] {
     [bridge='yes'] {
-      line-width: 6; line-color: fadeout(@trailcolor, 30%);
-      ::midfill { line-width: 4; line-color: fadeout(@mapbg, 30%); }
+      line-width: 6; line-color: fadeout(black, 30%);
+      //::midfill { line-width: 4; line-color: fadeout(@mapbg, 30%); }
     }
+    ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
-      line-dasharray: 2, 2;
+      line-dasharray: 4, 2;
       line-color: @trailcolor;
     }
   }
@@ -145,13 +168,13 @@ Map { background-color: @mapbg; }
     text-transform: uppercase;
     text-placement: line;
     text-halo-fill: white;
-    text-halo-radius: 2;
+    text-halo-radius: 1;
+    text-dy: 7;
   }
 }
 
 #parkingPoint, #parkingArea {
-  polygon-fill: black;
-  polygon-opacity: 0.3;
+  polygon-fill: @roadcolor;
   ::points[zoom>=14] {
     marker-file: url(symbols/parking.svg);
     marker-transform: scale(0.5,0.5);
@@ -164,8 +187,8 @@ Map { background-color: @mapbg; }
 
 #rail [railway='rail'][zoom>=11] {
   line-width: 1.5;
-  line-color: #555;
-  ::ties { line-width: 6; line-dasharray: 1.5,20; line-color: #555; }
+  line-color: @roadcolor;
+  ::ties { line-width: 6; line-dasharray: 1.5,20; line-color: @roadcolor; }
 }
 
 
@@ -248,12 +271,12 @@ Map { background-color: @mapbg; }
 }
 
 #hillshade {
-  raster-opacity: 0.2;
+  raster-opacity: 0.3;
   raster-scaling: bilinear;
   raster-comp-op: multiply;
   ::hilight {
     raster-scaling: bilinear;
     raster-comp-op: hard-light;
-    raster-opacity: 0.5;
+    raster-opacity: 0.8;
   }
 }
