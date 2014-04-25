@@ -7,8 +7,8 @@ Map { background-color: @mapbg; }
 
 
 /* Contours and buildings */
-#contours { line-width: 0.6; line-color: @contourcolor; }
-#buildings { polygon-fill: #000; }
+#contours[zoom>=14] { line-width: 0.6; line-color: @contourcolor; }
+#buildings[zoom>=14] { polygon-fill: #000; }
 
 /* Landuse etc */
 #nature {
@@ -36,13 +36,58 @@ Map { background-color: @mapbg; }
 #wetlands {
   polygon-fill: fadeout(@waterfill, 60%);
   polygon-pattern-file: url(symbols/marsh.png);
+  //polygon-pattern-file: url(symbols/wetland.svg);
 }
-
+#waterways [zoom>=12] {
+  line-width:0;
+  line-color:@waterfill;
+  [intermittent='yes'] { line-dasharray: 6,3; }
+  [waterway='river'] { line-width: 3; }
+  [waterway='canal'] { line-width: 3; }
+  [waterway='stream'] { line-width: 1.5; }
+  [waterway='ditch'] { line-width: 1; }
+}
 
 
 // Transportation and trails
 
-#roads {
+#roads [zoom<=10] {
+  line-width:0;
+  line-color:black;  
+  [highway='motorway'],
+  [highway='trunk'] { line-width: 1; }
+  [highway='primary'],
+  [highway='secondary'] { line-width: 0.7; }
+  [highway='tertiary'] { line-width: 0.5; }
+}
+
+#roads [zoom>=11][zoom<=13] {
+  line-width:0;
+  line-color:black;
+  [highway='motorway'],
+  [highway='trunk'] { line-width: 2.5; }
+  [highway='primary'],
+  [highway='secondary'] { line-width: 1.3; }
+  [highway='tertiary'] { line-width: 1.1; }
+  [highway='residential'],
+  [highway='unclassified'] { line-width: 0.9; }
+  [highway='motorway_link'],
+  [highway='trunk_link'],
+  [highway='primary_link'],
+  [highway='secondary_link'],
+  [highway='tertiary_link'],
+  [highway='service'] { line-width:0.7; }  
+  [highway='track'],
+  [highway='footway'],
+  [highway='path'],
+  [highway='bridleway'],
+  [highway='cycleway'] {
+    line-width: 0.5;
+    line-color: @trailcolor;
+  }
+}
+
+#roads [zoom>=14] {
   line-width:0;
   line-color:black;
   
@@ -91,7 +136,7 @@ Map { background-color: @mapbg; }
     }
   }
   
-  ::labels [zoom >= 15] {
+  ::labels [zoom >= 14] {
    	text-name: "[name]";
     text-size: 9;
     text-face-name: "DejaVu Sans Book";
@@ -107,7 +152,7 @@ Map { background-color: @mapbg; }
 #parkingPoint, #parkingArea {
   polygon-fill: black;
   polygon-opacity: 0.3;
-  ::points {
+  ::points[zoom>=14] {
     marker-file: url(symbols/parking.svg);
     marker-transform: scale(0.5,0.5);
     marker-allow-overlap: false;
@@ -117,10 +162,10 @@ Map { background-color: @mapbg; }
   }
 }
 
-#rail [railway='rail'] {
-  line-width: 4;
-  ::fill { line-width: 2; line-color: #ccc; }
-  ::ties { line-width: 9; line-dasharray: 1,20; }
+#rail [railway='rail'][zoom>=11] {
+  line-width: 1.5;
+  line-color: #555;
+  ::ties { line-width: 6; line-dasharray: 1.5,20; line-color: #555; }
 }
 
 
@@ -130,7 +175,7 @@ Map { background-color: @mapbg; }
   line-width:0.5;
   line-color:#555;
 }
-#points [power='pole'] {
+#points [power='pole'][zoom>=14] {
   marker-line-width: 0;
   marker-width: 3;
   marker-fill: #555;
@@ -139,24 +184,24 @@ Map { background-color: @mapbg; }
 
 // Misc POIs
 
-#points [amenity='toilets'] {
+#points [amenity='toilets'][zoom>=14] {
   marker-file: url(symbols/restrooms.svg);
   marker-transform: scale(0.5,0.5);
   marker-allow-overlap: false;
 }
-#points [amenity='drinking_water'] {
+#points [amenity='drinking_water'][zoom>=14] {
   marker-file: url(symbols/water.svg);
   marker-transform: scale(0.5,0.5);
   marker-allow-overlap: false;
 }
-#points [tourism='viewpoint'] {
+#points [tourism='viewpoint'][zoom>=14] {
   marker-file: url(symbols/view.svg);
   marker-transform: scale(0.5,0.5);
   marker-allow-overlap: false;
 }
 
-#areas [tourism='camp_site'],
-#points [tourism='camp_site'] {
+#areas [tourism='camp_site'][zoom>=12],
+#points [tourism='camp_site'][zoom>=12] {
   polygon-fill: black;
   polygon-opacity: 0.1;
   marker-file: url(symbols/campground.svg);
@@ -168,9 +213,6 @@ Map { background-color: @mapbg; }
 // Misc areas / landuse
 
 #areas [access='no'] {
-  //polygon-fill: #530;
-  //line-width: 0.5;
-  //line-color: #530;
   polygon-fill: fadeout(red, 80%);
   polygon-pattern-file: url(symbols/hatch-red-10.png);
 }
@@ -205,21 +247,8 @@ Map { background-color: @mapbg; }
   polygon-opacity: 0.3;
 }
 
-#waterways {
-  line-width:0;
-  line-color:@waterfill;
-  [waterway='river'] { line-width: 3; }
-  [waterway='canal'] { line-width: 3; }
-  [waterway='stream'] { line-width: 1.5; }
-  [waterway='ditch'] { line-width: 1; }
-  
-  [intermittent='yes'] {
-    line-dasharray: 6,3;
-  }
-}
-
 #hillshade {
-  raster-opacity: 0.5;
+  raster-opacity: 0.2;
   raster-scaling: bilinear;
   raster-comp-op: multiply;
   ::hilight {

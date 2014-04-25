@@ -34,7 +34,8 @@
         "extent_cache": "auto",
         "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "nature",
       "class": "",
@@ -58,7 +59,8 @@
         "extent_cache": "auto",
         "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "wetlands",
       "class": "",
@@ -82,7 +84,8 @@
         "extent_cache": "auto",
         "extent": "-8182899.78,5039864.13,-7776951.14,5295146.88",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "areas",
       "class": "",
@@ -125,7 +128,8 @@
         "extent_cache": "auto",
         "extent": "-73.5224881957754,41.2390449630356,-69.9283840955685,42.9075409858323",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "contours",
       "class": "",
@@ -150,7 +154,8 @@
         "extent_cache": "auto",
         "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "waterways",
       "class": "",
@@ -192,7 +197,8 @@
         "extent_cache": "auto",
         "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "water",
       "class": "",
@@ -217,7 +223,8 @@
         "extent_cache": "auto",
         "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "rail",
       "class": "",
@@ -225,6 +232,31 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "rail"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.912160551605524
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select way from ma_polygon where building is not null) as buildings",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "buildings",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "buildings"
     },
     {
       "geometry": "linestring",
@@ -245,7 +277,8 @@
         "dbname": "gis",
         "id": "roads",
         "project": "nembaTrailMap",
-        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+        "user": "lars"
       },
       "id": "roads",
       "class": "",
@@ -255,28 +288,30 @@
       "name": "roads"
     },
     {
+      "geometry": "linestring",
       "extent": [
-        -73.5082394079227,
-        41.186329079363894,
-        -69.86154072912736,
-        42.912160551605524
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        44.32206498807718
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way from ma_polygon where building is not null) as buildings",
+        "table": "(select * from ma_line where power='line') as powerlines",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
-        "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
-      "id": "buildings",
+      "id": "powerlines",
       "class": "",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "buildings"
+      "name": "powerlines"
     },
     {
       "extent": [
@@ -293,7 +328,8 @@
         "extent_cache": "auto",
         "extent": "-8182899.78,5039864.13,-7776951.14,5295146.88",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "parkingArea",
       "class": "",
@@ -318,7 +354,8 @@
         "extent_cache": "auto",
         "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "parkingPoint",
       "class": "",
@@ -326,31 +363,6 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "parkingPoint"
-    },
-    {
-      "geometry": "linestring",
-      "extent": [
-        -73.99833193000686,
-        40.15817614855736,
-        -69.65980696408792,
-        44.32206498807718
-      ],
-      "Datasource": {
-        "type": "postgis",
-        "table": "(select * from ma_line where power='line') as powerlines",
-        "key_field": "",
-        "geometry_field": "",
-        "extent_cache": "auto",
-        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
-        "host": "deltaii",
-        "dbname": "gis"
-      },
-      "id": "powerlines",
-      "class": "",
-      "srs-name": "900913",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "advanced": {},
-      "name": "powerlines"
     },
     {
       "geometry": "point",
@@ -368,7 +380,8 @@
         "extent_cache": "auto",
         "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
         "host": "deltaii",
-        "dbname": "gis"
+        "dbname": "gis",
+        "user": "lars"
       },
       "id": "points",
       "class": "",
