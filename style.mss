@@ -270,6 +270,28 @@ Map {
 }
 
 
+// Trail / junction markers
+
+#junctionMarkers [zoom >= 15] {
+  marker-line-color: @trailcolor;
+  marker-fill: white;
+  marker-width: 5;
+  text-dy: 6;
+  text-name: "[number]";
+  text-face-name: "DejaVu Sans Condensed";
+  
+  text-size: 8;
+  text-halo-radius: 1.5;
+  text-fill: #047;
+  text-halo-fill: white;
+  [zoom >=16] {
+    text-halo-radius: 2;
+    marker-width: 6;
+    text-size: 10;
+  }
+}
+
+
 // Misc areas / landuse
 
 #areas [access='no'][zoom >= 12] {
