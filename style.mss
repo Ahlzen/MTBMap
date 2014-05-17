@@ -1,7 +1,6 @@
 @mapbg: #fff;
-//@trailcolor: #640;
-//@trailcolor: #070;
-@trailcolor: #430;
+@trailcolor: #220;
+@trailcolorNoBike: #800;
 @contourcolor: fadeout(#530, 80%);
 @waterfill: #7af;
 @naturecolor: #cce3b0;
@@ -34,7 +33,6 @@ Map { background-color: @mapbg; }
       line-opacity: 0.5;
     }
   }
-  
 }
 
 
@@ -96,6 +94,7 @@ Map { background-color: @mapbg; }
   [highway='secondary_link'],
   [highway='tertiary_link'],
   [highway='service'] { line-width:0.7; }  
+  /*
   [highway='track'],
   [highway='footway'],
   [highway='path'],
@@ -104,6 +103,7 @@ Map { background-color: @mapbg; }
     line-width: 0.5;
     line-color: @trailcolor;
   }
+  */
 }
 
 #roads [zoom>=14] {
@@ -133,6 +133,7 @@ Map { background-color: @mapbg; }
       line-width: 1.5;
       line-dasharray: 10, 2;
       line-color: @trailcolor;
+      [bicycle='no'] { line-color: @trailcolorNoBike; }
     }
   }
   [highway='footway'],
@@ -146,6 +147,7 @@ Map { background-color: @mapbg; }
       line-width: 1.5;
       line-dasharray: 4, 2;
       line-color: @trailcolor;
+      [bicycle='no'] { line-color: @trailcolorNoBike; }
     }
   }
   [highway='cycleway'] {
@@ -153,9 +155,11 @@ Map { background-color: @mapbg; }
       line-width: 6; line-color: fadeout(@trailcolor, 30%);
       ::midfill { line-width: 4; line-color: fadeout(@mapbg, 30%); }
     }
+    ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
       line-color: @trailcolor;
+      [bicycle='no'] { line-color: @trailcolorNoBike; }
     }
   }
   
@@ -271,12 +275,12 @@ Map { background-color: @mapbg; }
 }
 
 #hillshade {
-  raster-opacity: 0.3;
+  raster-opacity: 0.2;
   raster-scaling: bilinear;
   raster-comp-op: multiply;
   ::hilight {
     raster-scaling: bilinear;
     raster-comp-op: hard-light;
-    raster-opacity: 0.8;
+    raster-opacity: 0.6;
   }
 }
