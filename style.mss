@@ -161,6 +161,7 @@ Map {
   }  
   [highway='track'],
   [highway='bridleway'] {
+    [bridge='yes'] { line-width: 6; line-color: fadeout(black, 30%); }
     ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
@@ -171,10 +172,7 @@ Map {
   }
   [highway='footway'],
   [highway='path'] {
-    [bridge='yes'] {
-      line-width: 6; line-color: fadeout(black, 30%);
-      //::midfill { line-width: 4; line-color: fadeout(@mapbg, 30%); }
-    }
+    [bridge='yes'] { line-width: 6; line-color: fadeout(black, 30%); }
     ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
