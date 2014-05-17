@@ -194,7 +194,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where \"natural\" = 'water') as water",
+        "table": "(select * from ma_polygon where \"natural\" = 'water' or waterway = 'riverbank') as water",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
