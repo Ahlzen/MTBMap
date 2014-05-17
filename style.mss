@@ -1,5 +1,5 @@
 @mapbg: #fff;
-@trailcolor: #220;
+@trailcolor: #000;
 @trailcolorNoBike: #800;
 @contourcolor: fadeout(#530, 80%);
 @waterfill: #7af;
@@ -7,31 +7,63 @@
 @roadcolor: #aaa;
 @housecolor: #bbb;
 
-Map { background-color: @mapbg; }
+Map {
+  background-color: @mapbg;
+  buffer-size: 64;
+}
 
 
 /* Contours and buildings */
 #contours[zoom>=14] { line-width: 0.6; line-color: @contourcolor; }
 #buildings[zoom>=14] { polygon-fill: @housecolor; }
 
+
+#parkLabelsLowzoom
+{
+  ::official [zoom>=10][zoom<=13] {
+    [name='Ames Nowell State Park'],
+    [name='Wompatuck State Park'],
+    [name='Blue Hills Reservation'],
+    [name='Borderland State Park'],
+    {
+      text-name: "[name]";
+      [zoom=10] { text-size: 10; }
+      [zoom=11] { text-size: 11; }
+      [zoom=12] { text-size: 12; }
+      text-size: 13;
+      text-face-name: "DejaVu Sans Condensed Bold Oblique";
+      text-wrap-width: 70;
+      text-max-char-angle-delta: 20;
+      text-fill: #060;
+      text-halo-fill: white;
+      text-halo-radius: 2;
+      text-min-distance: 150; // hack: avoid dupes for split areas
+    }
+  }
+  [zoom>=11][zoom<=12][way_area > 5000000],
+  [zoom>=13][zoom<=14][way_area > 1000000],
+  [zoom>=15][zoom<=15][way_area > 100000] {
+    text-name: "[name]";
+    text-size: 10;
+    text-size: 13;
+    text-face-name: "DejaVu Sans Condensed Oblique";
+    text-wrap-width: 80;
+    text-max-char-angle-delta: 20;
+    text-fill: #060;
+    text-halo-fill: white;
+    text-halo-radius: 2;
+    text-min-distance: 50;
+  }
+}
+
 /* Landuse etc */
 #nature {
   polygon-fill: @naturecolor;
+  [zoom<10] { polygon-fill: darken(@naturecolor, 15%); }
+  [zoom=10] { polygon-fill: darken(@naturecolor, 10%); }
+  [zoom=11] { polygon-fill: darken(@naturecolor, 5%); }
   [leisure='golf_course'] {
-    polygon-fill: darken(@naturecolor, 0%);
-  }
-  
-  [name='Ames Nowell State Park'] {
-    ::border {
-      line-width: 8;
-      line-color: darken(@naturecolor, 40%);
-      line-opacity: 0.5;
-    }
-    ::border2 {
-      line-width: 2;
-      line-color: darken(@naturecolor, 40%);
-      line-opacity: 0.5;
-    }
+    polygon-fill: darken(@naturecolor, 15%);
   }
 }
 
@@ -70,12 +102,13 @@ Map { background-color: @mapbg; }
 
 #roads [zoom<=10] {
   line-width:0;
-  line-color:@roadcolor;  
+  line-color:@roadcolor;
+  line-opacity: 0.5;
   [highway='motorway'],
   [highway='trunk'] { line-width: 1; }
   [highway='primary'],
   [highway='secondary'] { line-width: 0.7; }
-  [highway='tertiary'] { line-width: 0.5; }
+  //[highway='tertiary'] { line-width: 0.5; }
 }
 
 #roads [zoom>=11][zoom<=13] {
@@ -177,7 +210,7 @@ Map { background-color: @mapbg; }
   }
 }
 
-#parkingPoint, #parkingArea {
+#parkingPoint, #parkingArea [zoom >= 12] {
   polygon-fill: @roadcolor;
   ::points[zoom>=14] {
     marker-file: url(symbols/parking.svg);
@@ -189,7 +222,7 @@ Map { background-color: @mapbg; }
   }
 }
 
-#rail [railway='rail'][zoom>=11] {
+#rail [railway='rail'][zoom>=12] {
   line-width: 1.5;
   line-color: @roadcolor;
   ::ties { line-width: 6; line-dasharray: 1.5,20; line-color: @roadcolor; }
@@ -198,7 +231,7 @@ Map { background-color: @mapbg; }
 
 // Power lines etc
 
-#powerlines {
+#powerlines [zoom >= 14] {
   line-width:0.5;
   line-color:#555;
 }
@@ -227,8 +260,8 @@ Map { background-color: @mapbg; }
   marker-allow-overlap: false;
 }
 
-#areas [tourism='camp_site'][zoom>=12],
-#points [tourism='camp_site'][zoom>=12] {
+#areas [tourism='camp_site'][zoom>=14],
+#points [tourism='camp_site'][zoom>=14] {
   polygon-fill: black;
   polygon-opacity: 0.1;
   marker-file: url(symbols/campground.svg);
@@ -239,9 +272,13 @@ Map { background-color: @mapbg; }
 
 // Misc areas / landuse
 
-#areas [access='no'] {
+#areas [access='no'][zoom >= 12] {
   polygon-fill: fadeout(red, 80%);
   polygon-pattern-file: url(symbols/hatch-red-10.png);
+}
+
+#areas [aeroway='aerodrome'][zoom >= 11] {
+  polygon-fill: fadeout(@roadcolor, 50%);
 }
 
 #areas [landuse='meadow'],
@@ -249,7 +286,7 @@ Map { background-color: @mapbg; }
   polygon-fill: fadeout(#f0ffa0, 40%);
 }
 
-#areas [landuse='landfill'] {
+#areas [landuse='landfill'][zoom >= 12] {
   polygon-fill: fadeout(#640, 70%);
 }
 
@@ -269,7 +306,7 @@ Map { background-color: @mapbg; }
   polygon-opacity: 0.3;
 }
 
-#areas [leisure='pitch'] {
+#areas [leisure='pitch'][zoom >= 12] {
   polygon-fill: #070;
   polygon-opacity: 0.3;
 }

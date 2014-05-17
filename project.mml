@@ -35,7 +35,10 @@
         "extent": "-8182899.78,5039864.13,-7776951.14,5298611.33",
         "host": "deltaii",
         "dbname": "gis",
-        "user": "lars"
+        "user": "lars",
+        "id": "nature",
+        "project": "nembaTrailMap",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
       },
       "id": "nature",
       "class": "",
@@ -78,7 +81,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand')\n) as areas",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome'\n) as areas",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -389,6 +392,31 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "points"
+    },
+    {
+      "extent": [
+        -73.5082394079227,
+        41.186329079363894,
+        -69.86154072912736,
+        42.88936286514975
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select name,way,way_area from ma_polygon where landuse = 'conservation' or landuse = 'nature_reserve' or landuse = 'park' or leisure='park' or leisure = 'recreation_ground' or leisure='golf_course' or leisure='nature_reserve'\norder by way_area desc)\nas nature",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8182899.78,5039864.13,-7776951.14,5295146.88",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "parkLabelsLowzoom",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "parkLabelsLowzoom"
     }
   ],
   "scale": 1,
