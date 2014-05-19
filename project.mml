@@ -438,7 +438,10 @@
         "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
         "host": "deltaii",
         "dbname": "gis",
-        "user": "lars"
+        "user": "lars",
+        "id": "junctionMarkers",
+        "project": "nembaTrailMap",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
       },
       "id": "junctionMarkers",
       "class": "",
@@ -446,6 +449,35 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "junctionMarkers"
+    },
+    {
+      "geometry": "point",
+      "extent": [
+        -73.99706350882568,
+        41.232902145888104,
+        -69.92723722080088,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way,name,place,z_order FROM ma_point WHERE place IN\n('city','town','village','hamlet','isolated_dwelling','locality')\n) as places",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars",
+        "id": "townMarkers",
+        "project": "nembaTrailMap",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
+      },
+      "id": "townMarkers",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "townMarkers"
     }
   ],
   "scale": 1,

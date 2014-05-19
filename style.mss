@@ -1,11 +1,12 @@
 @mapbg: #fff;
 @trailcolor: #000;
-@trailcolorNoBike: #800;
+@trailcolorNoBike: #900;
 @contourcolor: fadeout(#530, 80%);
 @waterfill: #7af;
 @naturecolor: #cce3b0;
 @roadcolor: #aaa;
 @housecolor: #bbb;
+@townLabelColor: #999;
 
 Map {
   background-color: @mapbg;
@@ -17,6 +18,47 @@ Map {
 #contours[zoom>=14] { line-width: 0.6; line-color: @contourcolor; }
 #buildings[zoom>=14] { polygon-fill: @housecolor; }
 
+
+#townMarkers [zoom>=8][zoom<=14]
+{
+  text-name: "[name]";
+  text-opacity: 0;
+  text-transform: uppercase;
+  text-face-name: "DejaVu Sans Condensed Bold";
+  text-wrap-width: 70;
+  text-max-char-angle-delta: 20;
+  text-fill: @townLabelColor;
+  text-halo-fill: white;
+  text-halo-radius: 2;
+  [zoom<=9] {
+   	[place='city'] {text-size: 10; text-opacity: 1;}
+    text-halo-radius: 1.5;
+  }
+  [zoom=10] {
+   	[place='city'] {text-size: 12; text-opacity: 1;}
+    [place='town'] {text-size: 8; text-opacity: 1;}
+    text-halo-radius: 1.5;
+  }
+  [zoom=11] {
+   	[place='city'] {text-size: 13; text-opacity: 1;}
+    [place='town'] {text-size: 10; text-opacity: 1;}
+    text-halo-radius: 1.5;
+    //[place='village'] {text-size: 11}
+    //[place='hamlet'],[place='locality'] {text-size: 10}
+  }
+  [zoom=12] {
+   	[place='city'] {text-size: 14; text-opacity: 1;}
+    [place='town'] {text-size: 11; text-opacity: 1;}
+    [place='village'] {text-size: 9; text-opacity: 1;}
+    //[place='hamlet'],[place='locality'] {text-size: 10; text-opacity: 1;}
+  }
+  [zoom>=13] {
+   	[place='city'] {text-size: 15; text-opacity: 1;}
+    [place='town'] {text-size: 12; text-opacity: 1;}
+    [place='village'] {text-size: 10; text-opacity: 1;}
+    [place='hamlet'],[place='locality'] {text-size: 8; text-opacity: 1; text-halo-radius: 1.5;}
+  }
+}
 
 #parkLabelsLowzoom
 {
@@ -100,18 +142,18 @@ Map {
 
 // Transportation and trails
 
-#roads [zoom<=10] {
+#roads [zoom<=11] {
   line-width:0;
   line-color:@roadcolor;
   line-opacity: 0.5;
-  [highway='motorway'],
-  [highway='trunk'] { line-width: 1; }
+  [highway='motorway'] { line-width: 1.5; }
+  [highway='trunk'] { line-width: 1.2; }
   [highway='primary'],
   [highway='secondary'] { line-width: 0.7; }
   //[highway='tertiary'] { line-width: 0.5; }
 }
 
-#roads [zoom>=11][zoom<=13] {
+#roads [zoom>=12][zoom<=13] {
   line-width:0;
   line-color:@roadcolor;
   [highway='motorway'],
@@ -127,16 +169,17 @@ Map {
   [highway='secondary_link'],
   [highway='tertiary_link'],
   [highway='service'] { line-width:0.7; }  
-  /*
+  
   [highway='track'],
   [highway='footway'],
   [highway='path'],
   [highway='bridleway'],
   [highway='cycleway'] {
     line-width: 0.5;
-    line-color: @trailcolor;
+    line-dasharray: 2, 2;
+    line-color: fadeout(@trailcolor, 30%);
   }
-  */
+  
 }
 
 #roads [zoom>=14] {
