@@ -151,6 +151,20 @@ Map {
   [highway='primary'],
   [highway='secondary'] { line-width: 0.7; }
   //[highway='tertiary'] { line-width: 0.5; }
+  
+  //[highway='motorway'],
+  //[highway='trunk'] {
+  [highway='motorway'][osm_id < 0] { 
+    shield-name: "[ref]";
+    shield-file: url(symbols/shield-standard.svg); // 10px
+    shield-face-name: "DejaVu Sans Bold";
+    shield-fill: @roadcolor;
+    shield-size: 8;
+    shield-transform: scale(3, 3);
+    shield-spacing: 500;
+    shield-min-distance: 100;
+  }
+  
 }
 
 #roads [zoom>=12][zoom<=13] {
