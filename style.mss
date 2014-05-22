@@ -7,6 +7,7 @@
 @roadcolor: #aaa;
 @housecolor: #bbb;
 @townLabelColor: #999;
+@bikeShopLabelColor: #a40;
 
 Map {
   background-color: @mapbg;
@@ -294,6 +295,31 @@ Map {
   marker-line-width: 0;
   marker-width: 3;
   marker-fill: #555;
+}
+
+
+// Bike shop labels
+
+#bikeShops [zoom>=12] {
+  marker-file: url(symbols/bike-shop.svg);
+  marker-allow-overlap: false;
+  //marker-transform: scale(2, 2);
+  //[zoom > 12] {
+    marker-transform: scale(3, 3);
+    text-dy: 12px;
+    text-size: 9;
+    text-face-name: "DejaVu Sans Condensed Bold";
+    [zoom > 14] {
+      marker-transform: scale(4, 4);
+      text-dy: 14px;
+      text-size: 11;
+    }
+    text-name: "[name]";  
+    text-wrap-width: 50;
+    text-fill: @bikeShopLabelColor;
+    text-halo-fill: white;
+    text-halo-radius: 1.5;
+  //}
 }
 
 
