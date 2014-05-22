@@ -188,6 +188,7 @@ Map {
   [highway='track'],
   [highway='footway'],
   [highway='path'],
+  [highway='pedestrian'],
   [highway='bridleway'],
   [highway='cycleway'] {
     line-width: 0.5;
@@ -229,7 +230,8 @@ Map {
     }
   }
   [highway='footway'],
-  [highway='path'] {
+  [highway='path'],
+  [highway='pedestrian'] {
     [bridge='yes'] { line-width: 6; line-color: fadeout(black, 30%); }
     ::background { line-width: 4; line-color: white; }
     ::fill {
@@ -305,7 +307,7 @@ Map {
   marker-allow-overlap: false;
   //marker-transform: scale(2, 2);
   //[zoom > 12] {
-    marker-transform: scale(3, 3);
+    marker-transform: scale(2.5, 2.5);
     text-dy: 12px;
     text-size: 9;
     text-face-name: "DejaVu Sans Condensed Bold";
