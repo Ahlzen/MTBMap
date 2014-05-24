@@ -293,6 +293,32 @@
     {
       "geometry": "linestring",
       "extent": [
+        -73.74856623487236,
+        40.15817614855736,
+        -69.65980696408792,
+        43.141291688625
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_roads where highway is not null) as highway",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8209652.84,4888954.7,-7754494.24,5333502.67",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "roadsLowzoom",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "roadsLowzoom"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
         -73.99833193000686,
         40.15817614855736,
         -69.65980696408792,

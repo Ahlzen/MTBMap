@@ -143,7 +143,7 @@ Map {
 
 // Transportation and trails
 
-#roads [zoom<=11] {
+#roadsLowzoom [zoom<=11] {
   line-width:0;
   line-color:@roadcolor;
   line-opacity: 0.5;
