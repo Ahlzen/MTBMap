@@ -302,7 +302,7 @@ Map {
 
 // Bike shop labels
 
-#bikeShops [zoom>=12] {
+.bikeShops [zoom>=12] {
   marker-file: url(symbols/bike-shop.svg);
   marker-allow-overlap: false;
   marker-transform: scale(2.5, 2.5);
