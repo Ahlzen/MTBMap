@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Trail Map</title>
+
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+<style type="text/css" rel="stylesheet">
+body { padding: 0; margin: 0; font-family: sans-serif; }
+html, body, #map {
+   witdh: 100%;
+   height: 100%;
+}
+a { color: #adf; text-decoration: none; }
+a:hover { text-decoration: underline; }
+#infobar {
+   font-size: 8pt;
+   text-align: right;
+   color: #ffe;
+   background-color: #000;
+   opacity: 0.7;
+   z-index: 1000;
+   position: absolute;
+   bottom: 0px;
+   width: 100%;
+}
+#infobar span {
+   margin: 2px 6px;
+}
+</style>
+
+</head>
+
+<body>
+<div id="map"></div>
+<div id="infobar">  
+   <span id="latlon"></span> &bull; <span id="zoom"></span>
+   &bull;
+   <span>Map data &copy; <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>.
+   Additional data from <a href="http://mass.gov/mgis">MassGIS</a> and <a href="http://usgs.gov/">USGS</a></span>
+</div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+<script type="text/javascript">
+
+var tileurl = 'http://osm.ahlzen.com:4/ts/tile.py/{name}/{z}/{x}/{y}.png';
+var maxzoom = 17;
+
+// Get map coordinates from URL, or use defaults:
+var lat = getUrlVars()["lat"] || 42.0;
+var lon = getUrlVars()["lon"] || -71.0;
+var z = getUrlVars()["z"] || 10;
+
+// Map layers and objects
+var trailmaps3 = L.tileLayer(tileurl, {name: 'trailmaps3'});
+var maParcel = L.tileLayer(tileurl, {name: 'ma-parcel'});
+var map = L.map('map', {
+  center: new L.LatLng(lat, lon),
+  zoom: z,
+  layers: [trailmaps3]
+});
+
+// Add layer switcher
+var baseLayers = {"Trail Map": trailmaps3};
+var overlays = {"Parcels": maParcel};
+L.control.layers(baseLayers, overlays).addTo(map);
+
+// Add scale bar
+L.control.scale().addTo(map);
+
+// Update page
+updateZoomLevel();
+updateLatLong(map.getCenter());
+
+// Hook up events
+map.on('zoomend', updateZoomLevel);
+map.on('mousemove', function(e){updateLatLong(e.latlng)});
+map.on('moveend', function(e){updateUrl();});
+
+function updateZoomLevel() {
+   z = map.getZoom();
+   document.getElementById('zoom').innerHTML = 'z' + z;
+}  
+
+function updateLatLong(ll) {
+   document.getElementById('latlon').innerHTML =
+      ll.lat.toFixed(3) + ', ' + ll.lng.toFixed(3);
+}
+
+function updateUrl() {
+   ll = map.getCenter();
+   url = "map.html?lat=" + ll.lat.toFixed(3)
+      + "&lon=" + ll.lng.toFixed(3) + "&z=" + z; 
+   history.replaceState({}, "", url);
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+    function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+</script>
+
+</body>
+</html>
+
