@@ -147,11 +147,31 @@ else
 }
 
 
-// Utility functions
+/////// Utility functions
 
+// Returns true iff str ends with suffix
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
+
+// Returns the URL without query params or fragment
+function getBasicUrl() {
+    return [location.protocol, '//',
+        location.host, location.pathname].join('');
+}
+
+// Returns the current URL's query params in an associative array
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+    function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+
+/////// Map functions
 
 function updateZoomLevel() {
    z = map.getZoom();
@@ -165,18 +185,11 @@ function updateLatLong(ll) {
 
 function updateUrl() {
    ll = map.getCenter();
-   url = "map.html?lat=" + ll.lat.toFixed(3)
-      + "&lon=" + ll.lng.toFixed(3) + "&z=" + z; 
+   url = getBasicUrl() +
+      "?lat=" + ll.lat.toFixed(3) +
+      "&lon=" + ll.lng.toFixed(3) +
+      "&z=" + z;
    history.replaceState({}, "", url);
-}
-
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-    function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
 }
 
 </script>
