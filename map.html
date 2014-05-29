@@ -47,6 +47,7 @@ a:hover { text-decoration: underline; }
 </div>
 
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="leaflet-plugins/layer/vector/GPX.js"></script>
 
 <script type="text/javascript">
 
@@ -83,6 +84,74 @@ updateLatLong(map.getCenter());
 map.on('zoomend', updateZoomLevel);
 map.on('mousemove', function(e){updateLatLong(e.latlng)});
 map.on('moveend', function(e){updateUrl();});
+
+
+
+// GPX drag and drop support
+// Based on: http://www.html5rocks.com/en/tutorials/file/dndfiles/
+
+function handleDnDDragOver(evt)
+{
+   evt.stopPropagation();
+   evt.preventDefault();
+   evt.dataTransfer.dropEffect = 'copy';
+}
+
+function handleDnDFileSelect(evt)
+{
+   evt.stopPropagation();
+   evt.preventDefault();
+   
+   var files = evt.dataTransfer.files;
+   for (var i = 0, f; f = files[i]; i++)
+   {
+      if (!endsWith(f.name.toLowerCase(), ".gpx")) {
+         window.alert("Only .gpx files are supported as map overlays");
+         return; // not a GPX file?
+      }
+      
+      if (f.size > 10000000) {
+         window.alert("GPX file is too big to display");
+         return;
+      }
+      
+      var reader = new FileReader();
+      reader.onload = (function(theFile) {
+         return function(e) {
+            var gpx = e.target.result;
+            var track = new L.GPX(null, null);
+            var xmlParser = new DOMParser();
+            var xmlDoc = xmlParser.parseFromString(gpx,"text/xml");
+            track._addGPX(xmlDoc, {});
+            map.addLayer(track);
+            map.fitBounds(track.getBounds());
+            // TODO: Add to layer switcher so it can be toggled on/off
+         };
+      })(f);
+      
+      reader.onerror = function(){window.alert("Error reading GPX file");}
+      reader.readAsText(f);
+   }
+}
+
+if (window.File && window.FileReader && window.FileList && window.Blob)
+{
+   // Hook up events
+   var dropZone = document.getElementById('map');
+   dropZone.addEventListener('dragover', handleDnDDragOver, false);
+   dropZone.addEventListener('drop', handleDnDFileSelect, false);
+}
+else
+{
+   // No drag-and-drop support :(
+}
+
+
+// Utility functions
+
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 
 function updateZoomLevel() {
    z = map.getZoom();
