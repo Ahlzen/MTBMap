@@ -63,26 +63,6 @@ Map {
 
 #parkLabelsLowzoom
 {
-  ::official [zoom>=10][zoom<=13] {
-    [name='Ames Nowell State Park'],
-    [name='Wompatuck State Park'],
-    [name='Blue Hills Reservation'],
-    [name='Borderland State Park'],
-    {
-      text-name: "[name]";
-      [zoom=10] { text-size: 10; }
-      [zoom=11] { text-size: 11; }
-      [zoom=12] { text-size: 12; }
-      text-size: 13;
-      text-face-name: "DejaVu Sans Condensed Bold Oblique";
-      text-wrap-width: 70;
-      text-max-char-angle-delta: 20;
-      text-fill: #060;
-      text-halo-fill: white;
-      text-halo-radius: 2;
-      text-min-distance: 150; // hack: avoid dupes for split areas
-    }
-  }
   [zoom>=11][zoom<=12][way_area > 5000000],
   [zoom>=13][zoom<=14][way_area > 1000000],
   [zoom>=15][zoom<=15][way_area > 100000] {
