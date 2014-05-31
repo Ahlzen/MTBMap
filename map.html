@@ -14,6 +14,17 @@ html, body, #map {
 }
 a { color: #adf; text-decoration: none; }
 a:hover { text-decoration: underline; }
+#topbar {
+   font-size: 10pt;
+   text-align: left;
+   color: #ffe;
+   background-color: #000;
+   opacity: 0.7;
+   z-index: 1000;
+   position: absolute;
+   top: 0px;
+   width: 100%;
+}
 #infobar {
    font-size: 8pt;
    text-align: right;
@@ -33,18 +44,27 @@ a:hover { text-decoration: underline; }
 .leaflet-bottom .leaflet-control {
 	margin-bottom: 20px;
 }
+.leaflet-top .leaflet-control {
+	margin-top: 50px;
+}
 </style>
 
 </head>
 
 <body>
 <div id="map"></div>
+<div id="topbar">
+   <input type="checkbox" id="markerCheckbox" checked="false"
+      onClick="updateMarkerState();" />
+   <label for="markerCheckbox">Show marker</label>
+</div>
 <div id="infobar">  
    <span id="latlon"></span> &bull; <span id="zoom"></span>
    &bull;
    <span>Map data &copy; <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>.
    Additional data from <a href="http://mass.gov/mgis">MassGIS</a> and <a href="http://usgs.gov/">USGS</a></span>
 </div>
+
 
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script src="leaflet-plugins/layer/vector/GPX.js"></script>
@@ -55,21 +75,26 @@ var tileurl = 'http://osm.ahlzen.com:4/ts/tile.py/{name}/{z}/{x}/{y}.png';
 var maxzoom = 17;
 
 // Get map coordinates from URL, or use defaults:
-var lat = getUrlVars()["lat"] || 42.0;
-var lon = getUrlVars()["lon"] || -71.0;
+var lat = getUrlVars()["lat"] || getUrlVars()["mlat"] || 42.0;
+var lon = getUrlVars()["lon"] || getUrlVars()["mlon"] || -71.0;
 var z = getUrlVars()["z"] || 10;
+var marker = null;
 
 // Map layers and objects
-var trailmaps3 = L.tileLayer(tileurl, {name: 'trailmaps3'});
+var trailmaps4 = L.tileLayer(tileurl, {name: 'trailmaps4'});
 var maParcel = L.tileLayer(tileurl, {name: 'ma-parcel'});
 var map = L.map('map', {
   center: new L.LatLng(lat, lon),
   zoom: z,
-  layers: [trailmaps3]
+  layers: [trailmaps4]
 });
 
+// Set marker status based on URL
+document.getElementById('markerCheckbox').checked = getUrlVars()['mlat'];
+updateMarkerState();
+
 // Add layer switcher
-var baseLayers = {"Trail Map": trailmaps3};
+var baseLayers = {"Trail Map": trailmaps4};
 var overlays = {"Parcels": maParcel};
 L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -84,7 +109,7 @@ updateLatLong(map.getCenter());
 map.on('zoomend', updateZoomLevel);
 map.on('mousemove', function(e){updateLatLong(e.latlng)});
 map.on('moveend', function(e){updateUrl();});
-
+map.on('move', mapMove);
 
 
 // GPX drag and drop support
@@ -147,7 +172,7 @@ else
 }
 
 
-/////// Utility functions
+// Utility functions
 
 // Returns true iff str ends with suffix
 function endsWith(str, suffix) {
@@ -171,7 +196,7 @@ function getUrlVars() {
 }
 
 
-/////// Map functions
+// Event handlers and map functions
 
 function updateZoomLevel() {
    z = map.getZoom();
@@ -180,16 +205,39 @@ function updateZoomLevel() {
 
 function updateLatLong(ll) {
    document.getElementById('latlon').innerHTML =
-      ll.lat.toFixed(3) + ', ' + ll.lng.toFixed(3);
+      ll.lat.toFixed(4) + ', ' + ll.lng.toFixed(4);
 }
 
 function updateUrl() {
    ll = map.getCenter();
-   url = getBasicUrl() +
-      "?lat=" + ll.lat.toFixed(3) +
-      "&lon=" + ll.lng.toFixed(3) +
-      "&z=" + z;
+   var url = getBasicUrl();
+   if (marker) {
+      url += "?mlat=" + ll.lat.toFixed(4);
+      url += "&mlon=" + ll.lng.toFixed(4);
+   } else {
+      url += "?lat=" + ll.lat.toFixed(4);
+      url += "&lon=" + ll.lng.toFixed(4);
+   }
+   url += "&z=" + z;
    history.replaceState({}, "", url);
+}
+
+function updateMarkerState() {
+   var checkbox = document.getElementById('markerCheckbox');
+   if (checkbox.checked) {
+      marker = L.marker(map.getCenter());
+      marker.on('dragend', updateUrl);
+      marker.addTo(map);
+   } else {
+      if (marker) { map.removeLayer(marker); }
+      marker = null;
+   }
+   updateUrl();
+}   
+
+function mapMove() {
+   // Make sure marker is centered
+   if (marker) { marker.setLatLng(map.getCenter()); }
 }
 
 </script>
