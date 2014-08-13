@@ -72,7 +72,6 @@ a:hover { text-decoration: underline; }
 <script type="text/javascript">
 
 var tileurl = 'http://osm.ahlzen.com:4/ts/tile.py/{name}/{z}/{x}/{y}.png';
-var maxzoom = 17;
 
 // Get map coordinates from URL, or use defaults:
 var lat = getUrlVars()["lat"] || getUrlVars()["mlat"] || 42.0;
@@ -85,7 +84,7 @@ var trailmaps4 = L.tileLayer(tileurl, {name: 'trailmaps4'});
 var maParcel = L.tileLayer(tileurl, {name: 'ma-parcel'});
 var map = L.map('map', {
   center: new L.LatLng(lat, lon),
-  zoom: z,
+  zoom: z, minZoom: 8, maxZoom: 17,
   layers: [trailmaps4]
 });
 
