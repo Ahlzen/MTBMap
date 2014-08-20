@@ -81,7 +81,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome'\n) as areas",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank'\n) as areas",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -245,7 +245,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way from ma_polygon where building is not null) as buildings",
+        "table": "(select way from ma_polygon where\nbuilding is not null) as buildings",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -326,7 +326,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_line where power='line') as powerlines",
+        "table": "(select * from ma_line where\npower='line' or\npower='minor_line' or\nbarrier='fence')\nas powerlines",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -335,12 +335,12 @@
         "dbname": "gis",
         "user": "lars"
       },
-      "id": "powerlines",
+      "id": "miscLines",
       "class": "",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "powerlines"
+      "name": "miscLines"
     },
     {
       "extent": [
@@ -557,6 +557,31 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "townMarkers"
+    },
+    {
+      "extent": [
+        -73.52044796179152,
+        41.186329079363894,
+        -69.86154072912736,
+        42.89281545201553
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank'\n) as areas",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8184258.83,5039864.13,-7776951.14,5295671.47",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "areaLabels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "areaLabels"
     }
   ],
   "scale": 1,

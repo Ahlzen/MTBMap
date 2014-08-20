@@ -267,9 +267,22 @@ Map {
 }
 
 
-// Power lines etc
+// Fences
 
-#powerlines [zoom >= 14] {
+#miscLines [zoom >= 14][barrier='fence'] {
+  line-width:0.5;
+  line-color:#000;
+  line-dasharray: 5,1;
+}
+
+
+// Power lines
+
+#miscLines [zoom >= 14][power='line'] {
+  line-width:0.7;
+  line-color:#555;
+}
+#miscLines [zoom >= 14][power='minor_line'] {
   line-width:0.5;
   line-color:#555;
 }
@@ -328,6 +341,45 @@ Map {
   marker-transform: scale(0.6,0.6);
   marker-allow-overlap: false;
 }
+/*
+#areaLabels {
+  [man_made='water_tank'],
+  [man_m
+}
+*/
+/*
+#areaLabels [zoom >= 14] {
+	marker-line-width: 0;
+    marker-width: 4;
+    marker-fill: blue;
+    text-name: "[name]";
+    text-size: 12;
+    text-face-name: "DejaVu Sans Book";
+    text-halo-fill: white;
+    text-halo-radius: 1;
+    text-dy: 5;
+}
+*/
+#areaLabels [zoom >= 14],
+#points [zoom >= 14] {
+  [man_made='water_tank'],
+  [man_made='water_tower'],
+  [man_made='tower'],
+  {
+    marker-line-width: 0;
+    marker-width: 4;
+    marker-fill: black;
+    text-name: "[name]";
+    text-size: 9;
+    text-face-name: "DejaVu Sans Book";
+    text-halo-fill: white;
+    text-halo-radius: 1;
+    text-dy: 5;
+    [man_made='water_tank'] { text-name: '"Water Tank"'; }
+    [man_made='water_tower'] { text-name: '"Water Tower"'; }
+  	[man_made='tower'] { text-name: '"Tower"'; }
+  }
+}
 
 
 // Trail / junction markers
@@ -378,6 +430,11 @@ Map {
   polygon-opacity: 0.1;
 }
 
+#areas [amenity='school'] {
+  polygon-fill: #852;
+  polygon-opacity: 0.2;
+}
+
 #areas [natural='sand'],
 #areas [leisure='beach'] {
   polygon-fill: #c0c070;
@@ -388,10 +445,37 @@ Map {
   polygon-opacity: 0.3;
 }
 
+#areas [landuse='quarry'],
+#areas [landuse='construction'] {
+  polygon-fill: #555;
+  polygon-opacity: 0.3;
+}
+
 #areas [leisure='pitch'][zoom >= 12] {
   polygon-fill: #070;
   polygon-opacity: 0.3;
 }
+
+// Area labels
+
+#areaLabels [zoom >= 15] {
+  [amenity='school'],
+  [leisure='beach'],
+  [landuse='cemetery'],
+  [landuse='quarry'],
+  [aeroway='aerodrome'] {
+    text-name: "[name]";
+    text-size: 8;
+    [zoom >= 16] { text-size: 9; }
+    text-face-name: "DejaVu Sans Book";
+    text-transform: uppercase;
+    text-halo-fill: white;
+    text-halo-radius: 1;
+    text-wrap-width: 60;
+  }
+}
+
+
 
 #hillshade {
   raster-opacity: 0.2;
