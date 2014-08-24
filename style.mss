@@ -1,6 +1,4 @@
 @mapbg: #fff;
-@trailcolor: #000;
-@trailcolorNoBike: #900;
 @contourcolor: fadeout(#530, 80%);
 @waterfill: #7af;
 @naturecolor: #cce3b0;
@@ -8,6 +6,16 @@
 @housecolor: #bbb;
 @townLabelColor: #999;
 @bikeShopLabelColor: #a40;
+
+/*
+@trailcolorDirt: #630;
+@trailcolorGravel: #555;
+@trailcolorSand: #660;
+@trailcolorAsphalt: #000;
+@trailcolorNoBike: #900;
+*/
+@trailcolor: #000;
+
 
 Map {
   background-color: @mapbg;
@@ -96,6 +104,7 @@ Map {
 #ocean { polygon-fill: @waterfill; }
 #water { 
   polygon-fill: @waterfill;
+  /*
   ::labels [zoom >= 14] {
    	text-name: "[name]";
     text-size: 11;
@@ -104,6 +113,7 @@ Map {
     text-max-char-angle-delta: 20;
     text-wrap-width: 30;
   }
+  */
 }
 #wetlands {
   /*polygon-fill: fadeout(@waterfill, 60%);*/
@@ -149,7 +159,6 @@ Map {
 }
 
 #roads [zoom>=12][zoom<=13] {
-  line-width:0;
   line-color:@roadcolor;
   [highway='motorway'],
   [highway='trunk'] { line-width: 2.5; }
@@ -164,7 +173,61 @@ Map {
   [highway='secondary_link'],
   [highway='tertiary_link'],
   [highway='service'] { line-width:0.7; }  
+}
+
+#roads [zoom>=14] {  
   
+  line-color: @roadcolor;
+  
+  // Dash by surface
+  [surface='dirt'],[surface='unpaved'],[surface='sand']{
+    line-dasharray: 12, 2;
+  }
+  
+  // Width by type
+  [highway='motorway'],
+  [highway='trunk'] { line-width: 8; }
+  [highway='primary'] { line-width: 6; }
+  [highway='secondary'] { line-width: 5; }
+  [highway='tertiary'] { line-width: 4; }
+  [highway='residential'],
+  [highway='unclassified'] { line-width: 3; }
+  [highway='motorway_link'],
+  [highway='trunk_link'],
+  [highway='primary_link'],
+  [highway='secondary_link'],
+  [highway='tertiary_link'],
+  [highway='service'] {
+    line-width: 2;
+    [service='driveway'],[service='parking_aisle'] { line-width: 1.5; }
+  }
+  
+  // Exception: Roads with motor_vehicle=no are considered
+  // hiking/biking paths:
+  [motor_vehicle='no'] {
+    line-width: 1.5;
+    line-color: @trailcolor;
+  	[surface='dirt'],[surface='ground'],[surface='unpaved'],[surface='sand'],[surface='gravel']{
+      //line-color: @trailcolorDirt;
+      line-dasharray: 12, 2;
+    }
+  }
+  
+  ::labels [zoom >= 14] {
+   	text-name: "[name]";
+    text-size: 9;
+    text-face-name: "DejaVu Sans Book";
+    text-character-spacing: 1;
+    text-max-char-angle-delta: 20;
+    text-transform: uppercase;
+    text-placement: line;
+    text-halo-fill: white;
+    text-halo-radius: 1;
+    text-dy: 7;
+  }
+}
+
+#trails [zoom>12][zoom<=13] {
   [highway='track'],
   [highway='footway'],
   [highway='path'],
@@ -174,41 +237,32 @@ Map {
     line-width: 0.5;
     line-dasharray: 2, 2;
     line-color: fadeout(@trailcolor, 30%);
-  }
-  
+  } 
 }
 
-#roads [zoom>=14] {
-  line-width:0;
-  line-color:@roadcolor;
+#trails [zoom>=14] {
   
-  [highway='motorway'],
-  [highway='trunk'] { line-width: 7; }
-  [highway='primary'] { line-width: 5; }
-  [highway='secondary'] { line-width: 4; }
-  [highway='tertiary'] { line-width: 3; }
-  [highway='residential'],
-  [highway='unclassified'] { line-width: 2; }
-  [highway='motorway_link'],
-  [highway='trunk_link'],
-  [highway='primary_link'],
-  [highway='secondary_link'],
-  [highway='tertiary_link'],
-  [highway='service'] {
-    line-width: 1.5;
-    [service='driveway'],[service='parking_aisle'] { line-width: 1; }
-  }  
+  
+  line-color: @trailcolor;
+  /*
+  // Color by surface type
+  [surface='asphalt'],[surface='paved'] { line-color: @trailcolorAsphalt; }
+  [surface='dirt'],[surface='ground'],[surface='unpaved']{ line-color: @trailcolorDirt; }
+  [surface='sand'] { line-color: @trailcolorSand; }
+  [surface='gravel'] { line-color: @trailcolorGravel; }
+  [bicycle='no'] { line-color: @trailcolorNoBike; }
+  */
+  
   [highway='track'],
   [highway='bridleway'] {
     [bridge='yes'] { line-width: 6; line-color: fadeout(black, 30%); }
     ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
-      line-dasharray: 10, 2;
-      line-color: @trailcolor;
-      [bicycle='no'] { line-color: @trailcolorNoBike; }
+      line-dasharray: 10, 2;    
     }
   }
+  
   [highway='footway'],
   [highway='path'],
   [highway='pedestrian'] {
@@ -217,8 +271,6 @@ Map {
     ::fill {
       line-width: 1.5;
       line-dasharray: 4, 2;
-      line-color: @trailcolor;
-      [bicycle='no'] { line-color: @trailcolorNoBike; }
     }
   }
   [highway='cycleway'] {
@@ -229,8 +281,6 @@ Map {
     ::background { line-width: 4; line-color: white; }
     ::fill {
       line-width: 1.5;
-      line-color: @trailcolor;
-      [bicycle='no'] { line-color: @trailcolorNoBike; }
     }
   }
   
@@ -458,20 +508,33 @@ Map {
 
 // Area labels
 
-#areaLabels [zoom >= 15] {
-  [amenity='school'],
-  [leisure='beach'],
-  [landuse='cemetery'],
-  [landuse='quarry'],
-  [aeroway='aerodrome'] {
-    text-name: "[name]";
-    text-size: 8;
-    [zoom >= 16] { text-size: 9; }
-    text-face-name: "DejaVu Sans Book";
-    text-transform: uppercase;
-    text-halo-fill: white;
-    text-halo-radius: 1;
-    text-wrap-width: 60;
+#areaLabels
+{
+  [zoom >= 14] {
+    [natural='water'] {
+      text-name: "[name]";
+      text-size: 11;
+      text-face-name: "DejaVu Sans Oblique";
+      text-fill: #03d;
+      text-max-char-angle-delta: 20;
+      text-wrap-width: 30;
+    }
+  }
+  [zoom >= 15] {
+    [amenity='school'],
+    [leisure='beach'],
+    [landuse='cemetery'],
+    [landuse='quarry'],
+    [aeroway='aerodrome'] {
+      text-name: "[name]";
+      text-size: 8;
+      [zoom >= 16] { text-size: 9; }
+      text-face-name: "DejaVu Sans Book";
+      text-transform: uppercase;
+      text-halo-fill: white;
+      text-halo-radius: 1;
+      text-wrap-width: 60;
+    }
   }
 }
 

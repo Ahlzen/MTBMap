@@ -267,11 +267,37 @@
         -73.99833193000686,
         40.15817614855736,
         -69.65980696408792,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, name, width, surface, bridge, foot, bicycle, service, (tags->'trail_visibility')\nFROM ma_line\nWHERE highway IN ('track', 'bridleway', 'footway', 'path', 'pedestrian', 'cycleway')\n) AS trails",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "trails",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "trails"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
         43.46055795589259
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_line where highway is not null) as highway",
+        "table": "(SELECT way, highway, name, width, surface, bridge, foot, bicycle, (tags->'motor_vehicle') as motor_vehicle, service\nFROM ma_line\nWHERE highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'service')\n) AS roads",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -567,7 +593,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank'\n) as areas",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank' OR\n\"natural\" = 'water'\n) as areas",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
