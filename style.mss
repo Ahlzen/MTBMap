@@ -51,14 +51,11 @@ Map {
    	[place='city'] {text-size: 13; text-opacity: 1;}
     [place='town'] {text-size: 10; text-opacity: 1;}
     text-halo-radius: 1.5;
-    //[place='village'] {text-size: 11}
-    //[place='hamlet'],[place='locality'] {text-size: 10}
   }
   [zoom=12] {
    	[place='city'] {text-size: 14; text-opacity: 1;}
     [place='town'] {text-size: 11; text-opacity: 1;}
     [place='village'] {text-size: 9; text-opacity: 1;}
-    //[place='hamlet'],[place='locality'] {text-size: 10; text-opacity: 1;}
   }
   [zoom>=13] {
    	[place='city'] {text-size: 15; text-opacity: 1;}
@@ -133,10 +130,7 @@ Map {
   [highway='trunk'] { line-width: 1.2; }
   [highway='primary'],
   [highway='secondary'] { line-width: 0.7; }
-  //[highway='tertiary'] { line-width: 0.5; }
   
-  //[highway='motorway'],
-  //[highway='trunk'] {
   [highway='motorway'][osm_id < 0] { 
     shield-name: "[ref]";
     shield-file: url(symbols/shield-standard.svg); // 10px
@@ -200,7 +194,6 @@ Map {
     line-width: 1.8;
     line-color: @trailcolor;
   	[surface='dirt'],[surface='ground'],[surface='unpaved'],[surface='sand'],[surface='gravel']{
-      //line-color: @trailcolorDirt;
       line-dasharray: 12, 2;
     }
   }
@@ -246,17 +239,7 @@ Map {
 }
 
 #trails [zoom>=14] {
-  
-  
   line-color: @trailcolor;
-  /*
-  // Color by surface type
-  [surface='asphalt'],[surface='paved'] { line-color: @trailcolorAsphalt; }
-  [surface='dirt'],[surface='ground'],[surface='unpaved']{ line-color: @trailcolorDirt; }
-  [surface='sand'] { line-color: @trailcolorSand; }
-  [surface='gravel'] { line-color: @trailcolorGravel; }
-  [bicycle='no'] { line-color: @trailcolorNoBike; }
-  */
   
   [highway='track'],
   [highway='bridleway'] {
@@ -456,26 +439,6 @@ Map {
   [zoom>=17] { marker-transform: scale(1.2,1.2); }
 }
 
-
-/*
-#areaLabels {
-  [man_made='water_tank'],
-  [man_m
-}
-*/
-/*
-#areaLabels [zoom >= 14] {
-	marker-line-width: 0;
-    marker-width: 4;
-    marker-fill: blue;
-    text-name: "[name]";
-    text-size: 12;
-    text-face-name: "DejaVu Sans Book";
-    text-halo-fill: white;
-    text-halo-radius: 1;
-    text-dy: 5;
-}
-*/
 #areaLabels [zoom >= 14],
 #points [zoom >= 14] {
   [man_made='water_tank'],
@@ -638,7 +601,6 @@ Map {
     }
   }
 }
-
 
 
 #hillshade {
