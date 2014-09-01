@@ -441,6 +441,16 @@ Map {
   marker-transform: scale(0.6,0.6);
   marker-allow-overlap: false;
 }
+
+#points [barrier='gate'][zoom>=15] {
+  marker-file: url(symbols/gate.svg);
+  marker-allow-overlap: false;
+  marker-transform: scale(0.8,0.8);
+  [zoom=16] { marker-transform: scale(1,1); }
+  [zoom>=17] { marker-transform: scale(1.2,1.2); }
+}
+
+
 /*
 #areaLabels {
   [man_made='water_tank'],
