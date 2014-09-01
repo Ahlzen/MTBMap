@@ -532,6 +532,11 @@ Map {
   polygon-pattern-file: url(symbols/hatch-red-10.png);
 }
 
+#areas [power='substation'],
+#areas [power='station'] {
+  polygon-fill: fadeout(#000000, 70%);
+}
+
 #areas [aeroway='aerodrome'][zoom >= 11] {
   polygon-fill: fadeout(@roadcolor, 50%);
 }

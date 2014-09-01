@@ -81,7 +81,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank' OR\nhighway IN ('pedestrian','footway')\n) as areas",
+        "table": "(select * from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank' OR\nhighway IN ('pedestrian','footway') OR\npower IN ('station','substation')\n) as areas",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
