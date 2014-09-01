@@ -9,6 +9,12 @@
 
 @trailcolor: #000;
 
+/* Mountain peaks */
+@peakColor: #643;
+@peakFont: "Liberation Serif Regular";
+@peakEleFont: "Liberation Serif Italic";
+@peakHalo: desaturate(lighten(@peakColor, 60%), 50%);
+
 
 Map {
   background-color: @mapbg;
@@ -473,6 +479,27 @@ Map {
     [man_made='water_tower'] { text-name: '"Water Tower"'; }
   	[man_made='tower'] { text-name: '"Tower"'; }
   }
+  [natural='peak'] {
+    point-file: url(symbols/peak.svg);
+    point-transform: scale(5.0, 5.0);
+    [zoom >= 14] { point-transform: scale(6.0, 6.0); }
+    text-name: "[name]";
+    text-dy: 8;
+    text-face-name: @peakFont;
+    text-size: 11;
+    text-fill: @peakColor;
+    text-halo-fill: @peakHalo;
+    text-halo-radius: 1.5;
+    ::elevation [ele!=""] {
+      text-name: [ele] + ' ft';
+      text-face-name: @peakEleFont;
+      text-size: 11;
+      text-dy: 22;
+      text-fill: @peakColor;
+      text-halo-fill: @peakHalo;
+      text-halo-radius: 1.5;
+    }
+  }
 }
 
 
@@ -511,7 +538,7 @@ Map {
 
 #areas [landuse='meadow'],
 #areas [landuse='grass'] {
-  polygon-fill: fadeout(#f0ffa0, 40%);
+  polygon-fill: fadeout(#f8ffc0, 30%);
 }
 
 #areas [landuse='landfill'][zoom >= 12] {
