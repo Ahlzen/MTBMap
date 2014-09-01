@@ -56,7 +56,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select * from ma_polygon where \"natural\" = 'wetland') as wetlands",
+        "table": "(select way,(tags->'produce') as produce, landuse, (tags->'managed') as managed, (tags->'seasonal') as seasonal\nfrom ma_polygon where \"natural\" = 'wetland') as wetlands",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",

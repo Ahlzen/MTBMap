@@ -101,11 +101,17 @@ Map {
 // Hydro features
 
 #ocean, #water { polygon-fill: @waterfill; }
-#wetlands {
-  /*polygon-fill: fadeout(@waterfill, 60%);*/
+
+#wetlands [zoom >= 10] {
   polygon-pattern-file: url(symbols/marsh.png);
-  //polygon-pattern-file: url(symbols/wetland.svg);
+  
+  // Cranberry bogs!
+  [landuse='orchard'][produce='cranberry'],
+  [landuse='farm'][managed='yes'][seasonal='yes'] {
+    polygon-fill: fadeout(#704, 70%);
+  }  
 }
+
 #waterways [zoom>=12] {
   line-width:0;
   line-color:@waterfill;
