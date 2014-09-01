@@ -609,6 +609,8 @@ Map {
       text-size: 11;
       text-face-name: "DejaVu Sans Oblique";
       text-fill: #03d;
+      text-halo-radius: 1.5;
+      text-halo-fill: @waterfill;
       text-max-char-angle-delta: 20;
       text-wrap-width: 30;
     }
