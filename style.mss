@@ -462,13 +462,15 @@ Map {
     point-file: url(symbols/peak.svg);
     point-transform: scale(5.0, 5.0);
     [zoom >= 14] { point-transform: scale(6.0, 6.0); }
+    [zoom >= 16] { point-transform: scale(8.0, 8.0); }
     text-name: "[name]";
     text-dy: 8;
     text-face-name: @peakFont;
     text-size: 11;
+    [zoom >= 16] { text-size: 13; }
     text-fill: @peakColor;
     text-halo-fill: @peakHalo;
-    text-halo-radius: 1.5;
+    text-halo-radius: 1.6;
     ::elevation [ele!=""] {
       text-name: [ele] + ' ft';
       text-face-name: @peakEleFont;
@@ -578,8 +580,8 @@ Map {
       text-size: 11;
       text-face-name: "DejaVu Sans Oblique";
       text-fill: #03d;
-      text-halo-radius: 1.5;
-      text-halo-fill: @waterfill;
+      text-halo-radius: 1.3;
+      text-halo-fill: lighten(@waterfill, 20%);
       text-max-char-angle-delta: 20;
       text-wrap-width: 30;
     }
