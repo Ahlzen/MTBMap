@@ -10,10 +10,10 @@
 @trailcolor: #000;
 
 /* Mountain peaks */
-@peakColor: #643;
+@peakColor: #642;
 @peakFont: "Liberation Serif Regular";
 @peakEleFont: "Liberation Serif Italic";
-@peakHalo: desaturate(lighten(@peakColor, 60%), 50%);
+@peakHalo: white;
 
 
 Map {
