@@ -16,7 +16,11 @@
   "maxzoom": 17,
   "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
   "Stylesheet": [
-    "style.mss"
+    "basemap.mss",
+    "features.mss",
+    "trails.mss",
+    "roads.mss",
+    "labels.mss"
   ],
   "Layer": [
     {
@@ -142,32 +146,6 @@
       "name": "contours"
     },
     {
-      "geometry": "linestring",
-      "extent": [
-        -73.99833193000686,
-        40.15817614855736,
-        -69.65980696408792,
-        44.32206498807718
-      ],
-      "Datasource": {
-        "type": "postgis",
-        "table": "(select * from ma_line where waterway is not null) as waterways",
-        "key_field": "",
-        "geometry_field": "",
-        "extent_cache": "auto",
-        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
-        "host": "deltaii",
-        "dbname": "gis",
-        "user": "lars"
-      },
-      "id": "waterways",
-      "class": "",
-      "srs-name": "900913",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "advanced": {},
-      "name": "waterways"
-    },
-    {
       "geometry": "polygon",
       "extent": [
         -180,
@@ -209,6 +187,32 @@
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
       "name": "water"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -73.99833193000686,
+        40.15817614855736,
+        -69.65980696408792,
+        44.32206498807718
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(select * from ma_line where waterway is not null) as waterways",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-8237456.63,4888954.7,-7754494.24,5515418.51",
+        "host": "deltaii",
+        "dbname": "gis",
+        "user": "lars"
+      },
+      "id": "waterways",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "waterways"
     },
     {
       "geometry": "linestring",
@@ -414,12 +418,12 @@
         "dbname": "gis",
         "user": "lars"
       },
-      "id": "parkLabelsLowzoom",
+      "id": "parkLabels",
       "class": "",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "parkLabelsLowzoom"
+      "name": "parkLabels"
     },
     {
       "geometry": "point",
@@ -580,12 +584,12 @@
         "project": "nembaTrailMap",
         "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
       },
-      "id": "townMarkers",
+      "id": "townLabels",
       "class": "",
       "srs-name": "900913",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "advanced": {},
-      "name": "townMarkers"
+      "name": "townLabels"
     },
     {
       "extent": [
