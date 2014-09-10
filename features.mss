@@ -16,16 +16,9 @@
 
 // Misc transportation
 
-#parkingPoint, #parkingArea [zoom >= 12] {
+//#parkingPoint, 
+#parkingArea [zoom >= 12] {
   polygon-fill: @roadcolor;
-  ::points[zoom>=14] {
-    marker-file: url(symbols/parking.svg);
-    marker-transform: scale(0.5,0.5);
-    marker-allow-overlap: false;
-    [access='destination'],[access='no'],[access='private'] {
-      marker-opacity: 0; // hack for hiding icons
-    }
-  }
 }
 
 #rail [railway='rail'][zoom>=12] {

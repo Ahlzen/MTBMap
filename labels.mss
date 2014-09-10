@@ -110,6 +110,12 @@
 #areaLabels[zoom >= 14],
 #points[zoom >= 14]
 {
+  [amenity='parking'] {
+    marker-file: url(symbols/parking.svg);
+    marker-transform: scale(0.5,0.5);
+    marker-allow-overlap: false;
+  }  
+  
   [natural='water'] {
     text-name: "[name]";
     text-size: 11;

@@ -435,86 +435,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select way, name from ma_point where shop = 'bicycle') as bikeshops",
-        "key_field": "",
-        "geometry_field": "",
-        "extent_cache": "auto",
-        "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
-        "host": "deltaii",
-        "dbname": "gis",
-        "user": "lars"
-      },
-      "id": "bikeShopsPoint",
-      "class": "bikeShops",
-      "srs-name": "900913",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "advanced": {},
-      "name": "bikeShopsPoint",
-      "status": "off"
-    },
-    {
-      "extent": [
-        -73.5082394079227,
-        41.186329079363894,
-        -69.86154072912736,
-        42.89281545201553
-      ],
-      "Datasource": {
-        "type": "postgis",
-        "table": "(select way, name from ma_polygon where shop = 'bicycle') as bikeshops",
-        "key_field": "",
-        "geometry_field": "",
-        "extent_cache": "auto",
-        "extent": "-8182899.78,5039864.13,-7776951.14,5295671.47",
-        "host": "deltaii",
-        "dbname": "gis",
-        "user": "lars"
-      },
-      "id": "bikeShopsPoly",
-      "class": "bikeShops",
-      "srs-name": "900913",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "advanced": {},
-      "name": "bikeShopsPoly",
-      "status": "off"
-    },
-    {
-      "geometry": "point",
-      "extent": [
-        -73.99706350882568,
-        41.232902145888104,
-        -69.92723722080088,
-        44.32206498807718
-      ],
-      "Datasource": {
-        "type": "postgis",
-        "table": "(select * from ma_point where amenity='parking') as parkingPoint",
-        "key_field": "",
-        "geometry_field": "",
-        "extent_cache": "auto",
-        "extent": "-8237315.43,5046755.61,-7784264.44,5515418.51",
-        "host": "deltaii",
-        "dbname": "gis",
-        "user": "lars"
-      },
-      "id": "parkingPoint",
-      "class": "",
-      "srs-name": "900913",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "advanced": {},
-      "name": "parkingPoint"
-    },
-    {
-      "geometry": "point",
-      "extent": [
-        -73.99706350882568,
-        41.232902145888104,
-        -69.92723722080088,
-        44.32206498807718
-      ],
-      "Datasource": {
-        "type": "postgis",
-        "table": "(select * from ma_point) as points",
+        "table": "(select * from ma_point\nWHERE NOT (amenity = 'parking' AND access IN ('destination','no','private'))\n) as points",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
@@ -600,14 +521,17 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(select *, '' as ele from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank' OR\n\"natural\" = 'water'\n) as areas",
+        "table": "(select *, '' as ele from ma_polygon where\ntourism IN ('camp_site') OR\naccess IN ('private', 'no') OR\nlanduse IN ('grass','meadow','cemetery','landfill','quarry') OR\namenity IN ('grave_yard') OR\nleisure IN ('pitch','beach') OR\n\"natural\" IN ('wood','sand') OR\naeroway = 'aerodrome' OR\namenity = 'school' OR\nman_made = 'water_tank' OR\n\"natural\" = 'water' OR\n(amenity='parking' AND (access IS NULL OR access NOT IN ('destination','no','private')))\n) as areas",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",
         "extent": "-8184258.83,5039864.13,-7776951.14,5295671.47",
         "host": "deltaii",
         "dbname": "gis",
-        "user": "lars"
+        "user": "lars",
+        "id": "areaLabels",
+        "project": "nembaTrailMap",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
       },
       "id": "areaLabels",
       "class": "",
