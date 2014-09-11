@@ -116,7 +116,9 @@
     marker-allow-overlap: false;
   }  
   
-  [natural='water'] {
+  // water areas (except rivers; they are
+  // labeled along the corresponding waterway)
+  [natural='water'][water!='river'] {
     text-name: "[name]";
     text-size: 11;
     text-face-name: "DejaVu Sans Oblique";
@@ -190,6 +192,21 @@
       text-halo-radius: 1.5;
     }
   }
+}
+
+
+// Waterway labels
+
+#waterwayLabels[zoom >= 14] {
+  text-name: "[name]";
+  text-size: 11;
+  text-placement: line;
+  text-face-name: "DejaVu Sans Oblique";
+  text-fill: #03d;
+  text-halo-radius: 1.3;
+  text-halo-fill: lighten(@waterfill, 20%);
+  text-max-char-angle-delta: 20;
+  text-wrap-width: 30;
 }
 
 
