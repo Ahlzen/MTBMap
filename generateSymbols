@@ -8,16 +8,17 @@
 
 outdir="symbolsTM" # trail marker symbols
 
+# name;fill;border
 colors=\
-'black:#000
-red:#d00
-orange:#fa0
-yellow:#ff0
-green:#2b0
-blue:#07e
-cyan:#0dd
-white:#fff
-brown:#950'
+'black;#000;#000
+red;#e33;#000
+orange;#fa0;#000
+yellow;#ff0;#000
+green;#3a2;#000
+blue;#28f;#000
+cyan;#2dd;#000
+white;#fff;#000
+brown;#950;#000'
 
 function output() {
    name=$1
@@ -36,27 +37,33 @@ function output() {
 mkdir -pv $outdir
 
 for c in $colors; do
-  colorname=${c%%:*}
-  colorvalue=${c#*:}
-
+  colorname=${c%%;*}
+  fill=${c#*;};fill=${fill%;*}
+  border=${c##*;}
+  
   # circle
-  svg="<circle cx='5' cy='5' r='4' fill='$colorvalue' />"
+  svg="<circle cx='5' cy='5' r='5' fill='$border'/>
+       <circle cx='5' cy='5' r='4.5' fill='$fill'/>"
   output "circle_$colorname" "$svg"
   
   # square
-  svg="<rect x='1' y='1' width='8' height='8' fill='$colorvalue' />"
+  svg="<rect x='0.5' y='0.5' width='9' height='9' fill='$border'/>
+       <rect x='1' y='1' width='8' height='8' fill='$fill'/>"
   output "square_$colorname" "$svg"
   
   # rectangle (horizontal)
-  svg="<rect x='0' y='2' width='10' height='6' fill='$colorvalue' />"
+  svg="<rect x='0' y='2' width='10' height='6' fill='$border' />
+       <rect x='0.5' y='2.5' width='9' height='5' fill='$fill' />"
   output "rectangle_$colorname" "$svg"
   
   # diamond
-  svg="<polygon points='5,0 10,5 5,10 0,5' fill='$colorvalue' />"
+  svg="<polygon points='5,0 10,5 5,10 0,5' fill='$border' />
+       <polygon points='5,0.5 9.5,5 5,9.5 0.5,5' fill='$fill' />"
   output "diamond_$colorname" "$svg"
   
   # triangle (pointing up)
-  svg="<polygon points='5,0 10,10 0,10' fill='$colorvalue' />"
+  svg="<polygon points='5,0 10,10 0,10' fill='$border' />
+       <polygon points='5,0.5 9.5,9.5 0.5,9.5' fill='$fill' />"
   output "triangle_$colorname" "$svg"
   
 done
