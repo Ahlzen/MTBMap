@@ -88,6 +88,19 @@
       }
     }
     
+    ::trailmarkers [zoom>=16][symbol!=''] {
+      // Use shields (rather than markers) since we don't
+      // want symbols rotated along a line.
+      shield-file: url("symbolsTM/[symbol]_black.svg");
+      shield-placement: line;
+      shield-min-distance: 20;
+      shield-spacing: 100;
+      shield-face-name: "DejaVu Sans Bold"; // required; not used
+      [colour!=''] {
+        shield-file: url("symbolsTM/[symbol]_[colour].svg");
+      }
+    }
+    
   }
   
   // Minor roads with motor_vehicle=no are considered bike paths.

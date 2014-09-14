@@ -275,7 +275,7 @@
       ],
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT way, highway, name,\nCOALESCE(width, '3 ft') as width,\nsurface, bridge, foot, bicycle, service, tracktype,\nCOALESCE((tags->'trail_visibility'), 'good') as trail_visibility\nFROM ma_line\nWHERE highway IN ('track', 'bridleway', 'footway', 'path', 'pedestrian', 'cycleway')\nOR (highway IN ('unclassified','residential','service') AND (tags->'motor_vehicle') = 'no')\n) AS trails",
+        "table": "(SELECT way, highway, name,\nCOALESCE(width, '3 ft') as width,\nsurface, bridge, foot, bicycle, service, tracktype,\nCOALESCE((tags->'trail_visibility'), 'good') as trail_visibility,\n(tags->'symbol') AS symbol,\n(tags->'colour') AS colour\nFROM ma_line\nWHERE highway IN ('track', 'bridleway', 'footway', 'path', 'pedestrian', 'cycleway')\nOR (highway IN ('unclassified','residential','service') AND (tags->'motor_vehicle') = 'no')\n) AS trails",
         "key_field": "",
         "geometry_field": "",
         "extent_cache": "auto",

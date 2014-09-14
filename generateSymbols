@@ -1,0 +1,64 @@
+#!/bin/bash -e
+
+# inspired by openstreetmap-carto's shield
+# generation scripts at
+# https://github.com/gravitystorm/openstreetmap-carto/tree/master/scripts
+
+# all generated symbols are 10x10 units
+
+outdir="symbolsTM" # trail marker symbols
+
+colors=\
+'black:#000
+red:#d00
+orange:#fa0
+yellow:#ff0
+green:#2b0
+blue:#07e
+cyan:#0dd
+white:#fff
+brown:#950'
+
+function output() {
+   name=$1
+   svgBody=$2
+   filename="$outdir/$name.svg"
+   echo "Generating $filename"
+   
+   rm -f $filename
+   touch $filename
+   echo "<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 10 10'>" >>$filename
+   echo "$svgBody" >>$filename
+   echo "</svg>" >>$filename
+}
+
+
+mkdir -pv $outdir
+
+for c in $colors; do
+  colorname=${c%%:*}
+  colorvalue=${c#*:}
+
+  # circle
+  svg="<circle cx='5' cy='5' r='4' fill='$colorvalue' />"
+  output "circle_$colorname" "$svg"
+  
+  # square
+  svg="<rect x='1' y='1' width='8' height='8' fill='$colorvalue' />"
+  output "square_$colorname" "$svg"
+  
+  # rectangle (horizontal)
+  svg="<rect x='0' y='2' width='10' height='6' fill='$colorvalue' />"
+  output "rectangle_$colorname" "$svg"
+  
+  # diamond
+  svg="<polygon points='5,0 10,5 5,10 0,5' fill='$colorvalue' />"
+  output "diamond_$colorname" "$svg"
+  
+  # triangle (pointing up)
+  svg="<polygon points='5,0 10,10 0,10' fill='$colorvalue' />"
+  output "triangle_$colorname" "$svg"
+  
+done
+
+
